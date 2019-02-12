@@ -46,13 +46,15 @@ try {
   }
 } catch (err) {
   console.error('Unexpected error while generating ASAR', err)
-  fs.removeSync(tmpPath)
-  process.exit(1)
+  fs.remove(tmpPath)
+    .then(() => process.exit(1))
+    .catch(() => process.exit(1))
+  return
 }
 
 // Create the ASAR archive
 asar.createPackageWithOptions(tmpPath, out[0], {}, (err) => {
-  fs.removeSync(tmpPath)
+  fs.remove(tmpPath)
 
   if (err) {
     console.error('Unexpected error while generating ASAR', err)
