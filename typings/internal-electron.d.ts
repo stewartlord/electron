@@ -11,4 +11,8 @@ declare namespace Electron {
     setDesktopName(name: string): void;
     setAppPath(path: string | null): void;
   }
+
+  interface IpcRenderer {
+    sendToAll(webContentsId: number, channel: string, ...args: any[]): void
+  }
 }
